@@ -1,0 +1,16 @@
+{
+  "name": "COSG",
+  "tree": {
+    "$className": "DataModel",
+    "ReplicatedStorage": {
+      "COSG": {
+        "$path": "src/ReplicatedStorage/COSG"
+      }
+    },
+    "ServerScriptService": {
+      "COSG": {
+        "$path": "src/ServerScriptService/COSG"
+      }
+    }
+  }
+}
