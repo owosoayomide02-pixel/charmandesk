@@ -87,6 +87,7 @@ function ClickEconomy.apply(userId: number, batch: Batch): (boolean, string?)
 
 	Grants.idle(data, os.time())
 	Grants.glint(data, gain)
+	Grants.chapters(data, os.time())
 	data.stats.clicks += clicks
 	data.stats.crits += crits
 	return true, nil

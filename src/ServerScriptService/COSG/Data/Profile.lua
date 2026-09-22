@@ -14,6 +14,7 @@ local ProfileTemplate = COSG.ProfileTemplate
 
 local store = DataStoreService:GetDataStore(Config.Stores.Player)
 local cache: { [number]: any } = {}
+local memoryOnly: { [number]: boolean } = {}
 
 local Profile = {}
 
@@ -26,6 +27,13 @@ function Profile.hydrate(raw: any, userId: number)
 end
 
 function Profile.update(userId: number, mutator: (any) -> ()): (boolean, string?)
+	if memoryOnly[userId] then
+		local data = cache[userId] or Profile.hydrate(nil, userId)
+		mutator(data)
+		data.v = Config.SCHEMA_VERSION
+		cache[userId] = data
+		return true, nil
+	end
 	local ok, err = pcall(function()
 		store:UpdateAsync(Config.Keys.player(userId), function(old)
 			local data = Profile.hydrate(old, userId)
@@ -49,7 +57,11 @@ function Profile.load(userId: number): (any?, string?)
 		return store:GetAsync(Config.Keys.player(userId))
 	end)
 	if not ok then
-		return nil, tostring(result)
+		warn("[COSG] DataStore unavailable, using memory profile", userId, result)
+		memoryOnly[userId] = true
+		local data = Profile.hydrate(nil, userId)
+		cache[userId] = data
+		return data, nil
 	end
 	local data = Profile.hydrate(result, userId)
 	data.lastLogin = os.time()
@@ -74,6 +86,7 @@ function Profile.release(userId: number)
 		Profile.save(userId)
 	end
 	cache[userId] = nil
+	memoryOnly[userId] = nil
 end
 
 function Profile.bind()

@@ -1,5 +1,5 @@
 {
-  "name": "COSG",
+  "name": "Charmdesk",
   "tree": {
     "$className": "DataModel",
     "ReplicatedStorage": {
@@ -10,6 +10,13 @@
     "ServerScriptService": {
       "COSG": {
         "$path": "src/ServerScriptService/COSG"
+      }
+    },
+    "StarterPlayer": {
+      "$className": "StarterPlayer",
+      "StarterPlayerScripts": {
+        "$className": "StarterPlayerScripts",
+        "$path": "src/StarterPlayer/StarterPlayerScripts"
       }
     }
   }

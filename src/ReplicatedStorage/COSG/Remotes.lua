@@ -14,6 +14,7 @@ local Remotes = {
 	Prestige = "Prestige", -- RemoteFunction() -> { ok, err? }
 	Equip = "Equip", -- RemoteFunction(cosmeticId) -> { ok, err? }
 	ClaimQuest = "ClaimQuest", -- RemoteFunction() all-three bonus
+	StudioBuy = "StudioBuy", -- RemoteFunction(cosmeticId) Studio only while product IDs are 0
 	-- Server -> client
 	ProfileSync = "ProfileSync",
 	Toast = "Toast",

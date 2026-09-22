@@ -11,6 +11,8 @@ local COSG = {
 	Quests = require(script.Quests),
 	BattlePassS1 = require(script.BattlePassS1),
 	ShopRotation = require(script.ShopRotation),
+	Economy = require(script.Economy),
+	Appearance = require(script.Appearance),
 }
 
 return COSG

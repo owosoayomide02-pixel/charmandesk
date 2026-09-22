@@ -81,7 +81,18 @@ function Grants.idle(profile: any, now: number)
 	local boost = if now < (profile.boosterUntil or 0) then 1.25 else 1
 	local amount = math.floor(cps * dt * prestige * shard * boost)
 	Grants.glint(profile, amount)
+	Grants.chapters(profile, now)
 	return amount
+end
+
+function Grants.chapters(profile: any, now: number)
+	for _, ch in Config.Chapters do
+		local key = tostring(ch.id)
+		if profile.runEarned >= ch.runEarned and not profile.chapters[key] then
+			profile.chapters[key] = true
+			Grants.cosmetic(profile, ch.grantId, "chapter", now)
+		end
+	end
 end
 
 return Grants
